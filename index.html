@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closet Aura | Guardarropa inteligente</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="authView" class="auth-layout">
+    <section class="auth-art">
+      <div class="brand"><span class="brand-mark">✦</span> closet aura</div>
+      <div class="art-copy">
+        <p class="eyebrow">TU ESTILO, UN PASO ADELANTE</p>
+        <h1>Vístete según<br>tu mundo.</h1>
+        <p>Organiza tus prendas y encuentra combinaciones que van con el clima y tu ocasión.</p>
+      </div>
+      <div class="auth-photo-card"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=85" alt="Prendas en tonos pastel organizadas en un guardarropa"><span>Encuentra tu estilo ✦</span></div>
+      <div class="art-note">✧ Tu guardarropa, más inteligente.</div>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="mobile-brand brand"><span class="brand-mark">✦</span> closet aura</div>
+        <p class="eyebrow">BIENVENIDA/O</p>
+        <h2 id="authTitle">Inicia sesión</h2>
+        <p class="muted" id="authSubtitle">Entra para consultar tu guardarropa personal.</p>
+        <form id="authForm">
+          <div id="nameField" class="field hidden">
+            <label for="fullName">Nombre</label>
+            <input id="fullName" autocomplete="name" placeholder="¿Cómo te llamas?">
+          </div>
+          <div class="field">
+            <label for="email">Correo electrónico</label>
+            <input id="email" type="email" required autocomplete="email" placeholder="tu@correo.com">
+          </div>
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" required minlength="4" autocomplete="current-password" placeholder="Escribe tu contraseña">
+          </div>
+          <p id="authError" class="error" aria-live="polite"></p>
+          <button class="primary full" id="authSubmit" type="submit">Iniciar sesión <span>→</span></button>
+        </form>
+        <p class="switch-auth"><span id="switchText">¿Aún no tienes cuenta?</span> <button id="switchAuth" class="text-button" type="button">Crear cuenta</button></p>
+        <p class="fine-print">Demo escolar: los datos se guardan localmente en este navegador.</p>
+      </div>
+    </section>
+  </div>
+
+  <div id="appView" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand sidebar-brand" href="#"><span class="brand-mark">✦</span> closet aura</a>
+      <p class="side-label">MENÚ PRINCIPAL</p>
+      <button class="nav-item active" data-page="dashboard"><span>⌂</span> Resumen</button>
+      <button class="nav-item" data-page="wardrobe"><span>▦</span> Mi guardarropa</button>
+      <button class="nav-item" data-page="outfits"><span>✧</span> Crear conjunto</button>
+      <div class="sidebar-bottom">
+        <div class="mini-profile"><div class="avatar" id="avatarInitial">A</div><div><strong id="sideUserName">Usuario</strong><small>Tu espacio personal</small></div></div>
+        <button class="nav-item logout" id="logoutBtn"><span>↪</span> Cerrar sesión</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow">TU ESPACIO DE ESTILO</p><h2 id="pageHeading">Hola, qué gusto verte ✨</h2></div>
+        <div class="topbar-right"><span class="today-chip">✦ Outfit planner</span><div class="avatar" id="topAvatar">A</div></div>
+      </header>
+
+      <section id="dashboardPage" class="page">
+        <div class="welcome-banner">
+          <div><p class="eyebrow light">UNA IDEA PARA HOY</p><h1>Tu estilo empieza<br>con lo que ya tienes.</h1><p>Planea un look que combine contigo y con el clima.</p><button class="light-button" data-goto="outfits">Crear un conjunto <span>→</span></button></div>
+          <div class="banner-photo"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=850&q=85" alt="Inspiración de moda y outfits"><div class="photo-sticker">outfit<br>of the day ♡</div></div>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">VISTA GENERAL</p><h3>Tu guardarropa</h3></div><button class="subtle-button" data-goto="wardrobe">Ver prendas →</button></div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-icon lavender">▦</div><div><span>Prendas registradas</span><strong id="totalClothes">0</strong><small>En tu colección</small></div></article>
+          <article class="stat-card"><div class="stat-icon peach">☀</div><div><span>Temperatura</span><strong id="dashTemp">--°C</strong><small id="dashWeather">Actualiza el clima</small></div></article>
+          <article class="stat-card"><div class="stat-icon mint">✧</div><div><span>Ocasión elegida</span><strong id="dashOccasion">—</strong><small>Para tu próximo look</small></div></article>
+        </div>
+        <div class="inspiration-strip"><img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=500&q=80" alt="Prendas cuidadosamente combinadas"><div><p class="eyebrow">UN RECORDATORIO BONITO</p><h3>La ropa correcta también es una forma de expresarte.</h3><p>Combina comodidad, color y tu propia personalidad.</p></div><span class="strip-sparkle">✧</span></div>
+        <div class="section-heading"><div><p class="eyebrow">EMPIEZA POR AQUÍ</p><h3>¿Qué te gustaría hacer?</h3></div></div>
+        <div class="action-grid">
+          <button class="action-card" data-goto="wardrobe"><span class="action-icon">＋</span><strong>Agregar prendas</strong><small>Organiza la ropa que tienes.</small><span class="action-arrow">↗</span></button>
+          <button class="action-card" data-goto="outfits"><span class="action-icon">☁</span><strong>Planear según el clima</strong><small>Elige temperatura, lluvia y ocasión.</small><span class="action-arrow">↗</span></button>
+          <button class="action-card" data-goto="outfits"><span class="action-icon">✧</span><strong>Descubrir un conjunto</strong><small>Combina prendas de tu guardarropa.</small><span class="action-arrow">↗</span></button>
+        </div>
+      </section>
+
+      <section id="wardrobePage" class="page hidden">
+        <div class="page-intro"><div><p class="eyebrow">TU COLECCIÓN PERSONAL</p><h1>Mi guardarropa</h1><p class="muted">Registra tus prendas para usarlas en tus combinaciones.</p></div><button id="addClothingBtn" class="primary">＋ Agregar prenda</button></div>
+        <div class="toolbar"><div class="search-wrap"><span>⌕</span><input id="searchClothes" placeholder="Buscar una prenda..."></div><select id="categoryFilter" aria-label="Filtrar categoría"><option value="todas">Todas las categorías</option><option value="superior">Parte superior</option><option value="inferior">Parte inferior</option><option value="vestido">Vestidos</option><option value="calzado">Calzado</option><option value="abrigo">Abrigos</option><option value="accesorio">Accesorios</option></select></div>
+        <div id="clothingGrid" class="clothing-grid"></div>
+        <div id="emptyWardrobe" class="empty-state hidden"><div>✧</div><h3>Aún no hay prendas</h3><p>Agrega tu primera prenda para comenzar.</p><button class="primary" data-add-clothing>Agregar prenda</button></div>
+      </section>
+
+      <section id="outfitsPage" class="page hidden">
+        <div class="page-intro"><div><p class="eyebrow">RECOMENDACIONES PERSONALIZADAS</p><h1>Crear conjunto</h1><p class="muted">Define las condiciones y encuentra prendas adecuadas.</p></div></div>
+        <div class="planner-layout">
+          <div class="planner-form panel">
+            <div class="panel-heading"><div class="panel-icon">☁</div><div><h3>Clima y ocasión</h3><p>Completa las condiciones de tu día.</p></div></div>
+            <form id="outfitForm">
+              <div class="field"><label for="temperature">Temperatura (°C)</label><div class="input-suffix"><input id="temperature" type="number" min="-20" max="55" value="18" required><span>°C</span></div></div>
+              <div class="field"><label for="weather">¿Está lloviendo?</label><select id="weather"><option value="no">No, está seco</option><option value="si">Sí, está lloviendo</option></select></div>
+              <div class="field"><label for="occasion">¿Para qué ocasión?</label><select id="occasion"><option value="universidad">Universidad</option><option value="casual">Casual</option><option value="trabajo">Trabajo / formal</option><option value="fiesta">Fiesta / evento</option><option value="deporte">Deporte</option></select></div>
+              <button class="primary full" type="submit">✨ Recomendar conjunto</button>
+              <p class="fine-print">La recomendación usa las reglas de compatibilidad modeladas a partir de tu archivo Prolog. La conexión directa con SWI‑Prolog requiere un servidor.</p>
+            </form>
+          </div>
+          <div class="recommendation panel"><div class="recommendation-top"><div><p class="eyebrow">TU PROPUESTA</p><h3 id="resultTitle">Tu próximo look</h3></div><span class="weather-badge" id="weatherBadge">☁ 18°C</span></div><div id="outfitResult" class="outfit-result"><div class="result-placeholder"><span>✧</span><h3>Tu estilo, a tu manera</h3><p>Selecciona el clima y la ocasión para descubrir una combinación.</p></div></div><div id="resultMessage" class="result-message"></div><button id="saveOutfitBtn" class="secondary full hidden">♡ Guardar conjunto favorito</button></div>
+        </div>
+        <div class="section-heading saved-heading"><div><p class="eyebrow">TUS FAVORITOS</p><h3>Conjuntos guardados</h3></div></div>
+        <div id="savedOutfits" class="saved-outfits"></div>
+      </section>
+
+      <div id="clothingModal" class="modal-backdrop hidden">
+        <div class="modal panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+          <div class="modal-header"><div><p class="eyebrow">NUEVA PIEZA</p><h3 id="modalTitle">Agregar prenda</h3></div><button id="closeModal" class="close-button" aria-label="Cerrar">×</button></div>
+          <form id="clothingForm">
+            <div class="field"><label for="clothingName">Nombre de la prenda</label><input id="clothingName" required placeholder="Ej. Blusa blanca"></div>
+            <div class="two-fields"><div class="field"><label for="clothingCategory">Categoría</label><select id="clothingCategory"><option value="superior">Parte superior</option><option value="inferior">Parte inferior</option><option value="vestido">Vestido</option><option value="calzado">Calzado</option><option value="abrigo">Abrigo</option><option value="accesorio">Accesorio</option></select></div><div class="field"><label for="clothingColor">Color</label><select id="clothingColor"><option value="negro">Negro</option><option value="blanco">Blanco</option><option value="gris">Gris</option><option value="beige">Beige</option><option value="azul">Azul</option><option value="rosa">Rosa</option><option value="verde">Verde</option><option value="rojo">Rojo</option><option value="cafe">Café</option><option value="dorado">Dorado</option><option value="amarillo">Amarillo</option><option value="multicolor">Multicolor</option><option value="transparente">Transparente</option></select></div></div>
+            <div class="two-fields"><div class="field"><label for="clothingWarmth">Nivel de abrigo (1–5)</label><select id="clothingWarmth"><option value="1">1 · Ligero</option><option value="2" selected>2 · Medio ligero</option><option value="3">3 · Medio</option><option value="4">4 · Cálido</option><option value="5">5 · Muy cálido</option></select></div><div class="field"><label for="clothingFormality">Estilo</label><select id="clothingFormality"><option value="casual">Casual</option><option value="formal">Formal</option><option value="elegante">Elegante</option><option value="deportivo">Deportivo</option></select></div></div>
+            <div class="field"><label for="clothingEmoji">Icono de la prenda</label><select id="clothingEmoji"><option>👚</option><option>👕</option><option>👖</option><option>👗</option><option>👟</option><option>🥾</option><option>🧥</option><option>👜</option><option>🧣</option><option>☂️</option><option>👠</option></select></div>
+            <div class="field"><label for="clothingImage">URL de imagen (opcional)</label><input id="clothingImage" type="url" placeholder="https://..."><small class="field-hint">Puedes pegar un enlace directo a una imagen de tu prenda.</small></div>
+            <p id="clothingError" class="error"></p><button class="primary full" type="submit">Guardar prenda</button>
+          </form>
+        </div>
+      </div>
+      <div id="toast" class="toast" role="status"></div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

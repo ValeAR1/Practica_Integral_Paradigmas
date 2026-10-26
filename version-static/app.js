@@ -92,7 +92,43 @@ return combos[0]||null;}
 function renderRecommendation(rec){currentRecommendation=rec;if(!rec){$('outfitResult').innerHTML='<div class="result-placeholder"><span>☁</span><h3>No encontramos una combinación</h3><p>Prueba con otra ocasión o revisa las prendas disponibles en tu guardarropa.</p></div>';$('resultMessage').textContent='Las reglas requieren compatibilidad de estilo y color, abrigo suficiente y calzado adecuado para la lluvia.';$('saveOutfitBtn').classList.add('hidden');return}
 $('outfitResult').innerHTML=`<div class="outfit-items">${rec.items.map(item=>`<div class="outfit-item"><span class="item-emoji">${safe(item.emoji)}</span><div><strong>${safe(item.name)}</strong><small>${safe(categoryNames[item.category])} · ${safe(item.color)}</small></div></div>`).join('')}</div>`;
 $('resultMessage').textContent=`Recomendación para ${rec.temp}°C, ${rec.rain==='si'?'con lluvia':'sin lluvia'} y ocasión ${({universidad:'universidad',casual:'casual',trabajo:'trabajo',fiesta:'fiesta',deporte:'deporte'})[rec.occasion]}. ${needsOuter(rec.temp)?'Se incluye abrigo externo por la temperatura.':''}`;$('saveOutfitBtn').classList.remove('hidden');}
-$('outfitForm').addEventListener('submit',e=>{e.preventDefault();const temp=Number($('temperature').value),rain=$('weather').value,occasion=$('occasion').value;if(!Number.isFinite(temp)||temp < -20||temp>55){showToast('Ingresa una temperatura válida.');return}const weather={temperature:temp,rain,occasion};setWeather(weather);$('weatherBadge').textContent=`${rain==='si'?'☂':'☀'} ${temp}°C · ${rain==='si'?'Lluvia':'Seco'}`;$('resultTitle').textContent='Tu conjunto recomendado';renderRecommendation(findOutfit(temp,rain,occasion));updateDashboard();showToast('Condiciones actualizadas.');});
+$('outfitForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const temp = Number($('temperature').value), rain = $('weather').value, occasion = $('occasion').value;
+  if (!Number.isFinite(temp) || temp < -20 || temp > 55) {
+    showToast('Ingresa una temperatura válida.');
+    return;
+  }
+  const weather = { temperature: temp, rain, occasion };
+  setWeather(weather);
+  $('weatherBadge').textContent = `${rain === 'si' ? '☂' : '☀'} ${temp}°C · ${rain === 'si' ? 'Lluvia' : 'Seco'}`;
+  $('resultTitle').textContent = 'Tu conjunto recomendado';
+
+  // Intentar consultar al motor de inferencia SWI-Prolog
+  try {
+    const res = await fetch('/api/recomendar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ temperatura: temp, lluvia: rain, ocasion: occasion })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.ok && data.outfit) {
+        renderRecommendation(data.outfit);
+        updateDashboard();
+        showToast('✨ Recomendación inferida con SWI-Prolog');
+        return;
+      }
+    }
+  } catch (err) {
+    console.warn('Servidor Prolog no disponible, usando motor local como respaldo:', err);
+  }
+
+  // Respaldo local si no responde el backend Prolog
+  renderRecommendation(findOutfit(temp, rain, occasion));
+  updateDashboard();
+  showToast('Condiciones actualizadas.');
+});
 $('saveOutfitBtn').addEventListener('click',()=>{if(!currentRecommendation)return;const outfits=getOutfits();outfits.unshift({...currentRecommendation,id:'outfit-'+Date.now()});setOutfits(outfits);renderSavedOutfits();showToast('Conjunto guardado en favoritos.');});
 function renderSavedOutfits(){if(!currentUser)return;const outfits=getOutfits();$('savedOutfits').innerHTML=outfits.length?outfits.map(o=>`<article class="saved-card"><strong>✧ ${safe(o.items.map(i=>i.name).slice(0,2).join(' + '))}${o.items.length>2?'…':''}</strong><p>${safe(o.temp)}°C · ${o.rain==='si'?'Con lluvia':'Sin lluvia'}<br>${safe(o.items.map(i=>i.name).join(', '))}</p><button data-remove-outfit="${safe(o.id)}">Eliminar favorito</button></article>`).join(''):'<p class="muted">Todavía no has guardado conjuntos favoritos.</p>';document.querySelectorAll('[data-remove-outfit]').forEach(b=>b.addEventListener('click',()=>{setOutfits(getOutfits().filter(o=>o.id!==b.dataset.removeOutfit));renderSavedOutfits();showToast('Favorito eliminado.')}));}
 function init(){const email=localStorage.getItem(KEYS.session);if(email){const user=getUsers().find(u=>u.email===email);if(user){currentUser=user;showApp();return}}showAuth();switchAuth();}

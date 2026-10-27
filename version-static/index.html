@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closet Aura | Guardarropa Inteligente & Asistente de Outfits</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="authView" class="auth-layout">
+    <section class="auth-art">
+      <div class="brand"><span class="brand-mark">✦</span> closet aura</div>
+      <div class="art-copy">
+        <p class="eyebrow">TU ESTILO, UN PASO ADELANTE</p>
+        <h1>Vístete según<br>tu mundo.</h1>
+        <p>Organiza tus prendas, consulta el clima en tiempo real y descubre múltiples combinaciones generadas con lógica inteligente para cualquier ocasión.</p>
+      </div>
+      <div class="auth-photo-card"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=85" alt="Prendas en tonos pastel organizadas en un guardarropa"><span>Encuentra tu estilo ✦</span></div>
+      <div class="art-note">✧ Tu guardarropa, más inteligente. Conectado con SWI-Prolog y API meteorológica.</div>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="mobile-brand brand"><span class="brand-mark">✦</span> closet aura</div>
+        <p class="eyebrow">BIENVENIDA/O</p>
+        <h2 id="authTitle">Inicia sesión</h2>
+        <p class="muted" id="authSubtitle">Entra para consultar tu guardarropa personal.</p>
+        <form id="authForm">
+          <div id="nameField" class="field hidden">
+            <label for="fullName">Nombre</label>
+            <input id="fullName" autocomplete="name" placeholder="¿Cómo te llamas?">
+          </div>
+          <div class="field">
+            <label for="email">Correo electrónico</label>
+            <input id="email" type="email" required autocomplete="email" placeholder="tu@correo.com">
+          </div>
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" required minlength="4" autocomplete="current-password" placeholder="Escribe tu contraseña">
+          </div>
+          <p id="authError" class="error" aria-live="polite"></p>
+          <button class="primary full" id="authSubmit" type="submit">Iniciar sesión <span>→</span></button>
+        </form>
+        <p class="switch-auth"><span id="switchText">¿Aún no tienes cuenta?</span> <button id="switchAuth" class="text-button" type="button">Crear cuenta</button></p>
+        <p class="fine-print">Proyecto escolar de Paradigmas de Programación - ESCOM IPN. Los datos se almacenan en este navegador.</p>
+      </div>
+    </section>
+  </div>
+
+  <div id="appView" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand sidebar-brand" href="#"><span class="brand-mark">✦</span> closet aura</a>
+      <p class="side-label">MENÚ PRINCIPAL</p>
+      <button class="nav-item active" data-page="dashboard"><span>⌂</span> Resumen</button>
+      <button class="nav-item" data-page="wardrobe"><span>▦</span> Mi guardarropa</button>
+      <button class="nav-item" data-page="outfits"><span>✧</span> Crear conjunto</button>
+      <div class="sidebar-bottom">
+        <div class="mini-profile"><div class="avatar" id="avatarInitial">A</div><div><strong id="sideUserName">Usuario</strong><small>Tu espacio personal</small></div></div>
+        <button class="nav-item logout" id="logoutBtn"><span>↪</span> Cerrar sesión</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow">TU ESPACIO DE ESTILO</p><h2 id="pageHeading">Hola, qué gusto verte ✨</h2></div>
+        <div class="topbar-right">
+          <span class="prolog-chip" id="prologStatusChip" title="Estado de la conexión con el servidor SWI-Prolog">● Prolog Backend</span>
+          <span class="today-chip">✦ Outfit planner</span>
+          <div class="avatar" id="topAvatar">A</div>
+        </div>
+      </header>
+
+      <!-- PÁGINA: DASHBOARD / RESUMEN -->
+      <section id="dashboardPage" class="page">
+        <div class="welcome-banner">
+          <div>
+            <p class="eyebrow light">UNA IDEA PARA HOY</p>
+            <h1>Tu estilo empieza<br>con lo que ya tienes.</h1>
+            <p>Planea múltiples looks que combinen contigo, tu ocasión y el clima en tiempo real.</p>
+            <button class="light-button" data-goto="outfits">Crear un conjunto <span>→</span></button>
+          </div>
+          <div class="banner-photo"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=850&q=85" alt="Inspiración de moda y outfits"><div class="photo-sticker">outfit<br>of the day ♡</div></div>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">VISTA GENERAL</p><h3>Tu guardarropa y clima</h3></div><button class="subtle-button" data-goto="wardrobe">Ver prendas →</button></div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-icon lavender">▦</div><div><span>Prendas en tu clóset</span><strong id="totalClothes">0</strong><small>Sube y elimina tus prendas</small></div></article>
+          <article class="stat-card clickable-card" id="dashWeatherCard" title="Haz clic para actualizar clima"><div class="stat-icon peach">☀</div><div><span>Temperatura actual</span><strong id="dashTemp">--°C</strong><small id="dashWeather">Consultar API del clima</small></div></article>
+          <article class="stat-card"><div class="stat-icon mint">✧</div><div><span>Ocasión elegida</span><strong id="dashOccasion">—</strong><small>Para tu próximo look</small></div></article>
+        </div>
+        <div class="inspiration-strip"><img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=500&q=80" alt="Prendas cuidadosamente combinadas"><div><p class="eyebrow">UN RECORDATORIO BONITO</p><h3>La ropa correcta también es una forma de expresarte.</h3><p>Combina comodidad, color y tu propia personalidad con recomendaciones que varían todo tu clóset.</p></div><span class="strip-sparkle">✧</span></div>
+        <div class="section-heading"><div><p class="eyebrow">EMPIEZA POR AQUÍ</p><h3>¿Qué te gustaría hacer?</h3></div></div>
+        <div class="action-grid">
+          <button class="action-card" data-goto="wardrobe"><span class="action-icon">＋</span><strong>Subir o eliminar ropa</strong><small>Agrega fotos de tus prendas o quita las que no uses.</small><span class="action-arrow">↗</span></button>
+          <button class="action-card" data-goto="outfits"><span class="action-icon">☁</span><strong>Consultar clima con API</strong><small>Obtén el clima actual de tu ciudad o por GPS.</small><span class="action-arrow">↗</span></button>
+          <button class="action-card" data-goto="outfits"><span class="action-icon">✧</span><strong>Ver todas las combinaciones</strong><small>Descubre varios cambios completos de outfit.</small><span class="action-arrow">↗</span></button>
+        </div>
+      </section>
+
+      <!-- PÁGINA: MI GUARDARROPA -->
+      <section id="wardrobePage" class="page hidden">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">TU COLECCIÓN PERSONAL</p>
+            <h1>Mi guardarropa</h1>
+            <p class="muted">Sube tu ropa con fotos o elimina las prendas que desees. Estas prendas alimentan el motor de inferencia de outfits.</p>
+          </div>
+          <button id="addClothingBtn" class="primary">＋ Agregar prenda / Subir foto</button>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-wrap"><span>⌕</span><input id="searchClothes" placeholder="Buscar prenda por nombre..."></div>
+          <select id="categoryFilter" aria-label="Filtrar categoría">
+            <option value="todas">Todas las categorías</option>
+            <option value="superior">Parte superior</option>
+            <option value="inferior">Parte inferior</option>
+            <option value="vestido">Vestidos</option>
+            <option value="calzado">Calzado</option>
+            <option value="abrigo">Abrigos</option>
+            <option value="accesorio">Accesorios</option>
+          </select>
+          <button id="resetWardrobeBtn" class="text-button toolbar-reset" title="Restaurar el catálogo de demostración inicial">↺ Restaurar clóset inicial</button>
+        </div>
+
+        <div id="clothingGrid" class="clothing-grid"></div>
+        <div id="emptyWardrobe" class="empty-state hidden">
+          <div>✧</div>
+          <h3>Aún no tienes prendas en esta categoría</h3>
+          <p>Sube o agrega tu primera prenda para que el recomendador pueda generar combinaciones con ella.</p>
+          <button class="primary" data-add-clothing>＋ Subir mi primera prenda</button>
+        </div>
+      </section>
+
+      <!-- PÁGINA: CREAR CONJUNTO (PLANNER & RESULTADOS) -->
+      <section id="outfitsPage" class="page hidden">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">RECOMENDACIONES PERSONALIZADAS</p>
+            <h1>Crear conjunto</h1>
+            <p class="muted">Conecta el clima en vivo mediante la API meteorológica y descubre todas las combinaciones generadas cambiando todas las prendas.</p>
+          </div>
+        </div>
+
+        <!-- MÓDULO DE API DE CLIMA EN VIVO -->
+        <div class="weather-api-box panel">
+          <div class="weather-box-header">
+            <div class="weather-box-title">
+              <span class="weather-box-icon">🌦️</span>
+              <div>
+                <strong>API de Clima en tiempo real (Open-Meteo)</strong>
+                <p>Detecta el clima automáticamente por GPS o busca cualquier ciudad del mundo.</p>
+              </div>
+            </div>
+            <button id="geoWeatherBtn" class="secondary geo-btn" type="button">📍 Mi ubicación actual</button>
+          </div>
+          <div class="weather-search-row">
+            <div class="weather-search-wrap">
+              <input id="citySearchInput" placeholder="Busca una ciudad (ej. CDMX, Guadalajara, Monterrey, Madrid, Bogotá)...">
+              <button id="searchCityBtn" class="primary search-city-btn" type="button">Buscar clima</button>
+            </div>
+            <div class="city-chips">
+              <span class="chip-label">Sugeridas:</span>
+              <button type="button" class="city-chip" data-city="Ciudad de México">CDMX</button>
+              <button type="button" class="city-chip" data-city="Guadalajara">Guadalajara</button>
+              <button type="button" class="city-chip" data-city="Monterrey">Monterrey</button>
+              <button type="button" class="city-chip" data-city="Madrid">Madrid</button>
+              <button type="button" class="city-chip" data-city="Bogotá">Bogotá</button>
+            </div>
+          </div>
+          <div id="weatherLiveBadge" class="weather-live-badge hidden">
+            <span id="weatherLiveIcon" class="weather-live-icon">☀️</span>
+            <div class="weather-live-details">
+              <strong id="weatherLiveLocation">Ciudad de México</strong>
+              <span id="weatherLiveText">22°C · Cielo despejado · Sin lluvia</span>
+            </div>
+            <span class="weather-synced-pill">✓ Aplicado a las condiciones</span>
+          </div>
+        </div>
+
+        <div class="planner-layout">
+          <!-- FORMULARIO DE CONDICIONES -->
+          <div class="planner-form panel">
+            <div class="panel-heading">
+              <div class="panel-icon">☁</div>
+              <div>
+                <h3>Condiciones para tu look</h3>
+                <p>Ajustadas por la API del clima o personalizadas a mano.</p>
+              </div>
+            </div>
+            <form id="outfitForm">
+              <div class="field">
+                <label for="temperature">Temperatura (°C)</label>
+                <div class="input-suffix">
+                  <input id="temperature" type="number" min="-20" max="55" value="18" required>
+                  <span>°C</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="weather">¿Está lloviendo?</label>
+                <select id="weather">
+                  <option value="no">No, está seco</option>
+                  <option value="si">Sí, está lloviendo</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="occasion">¿Para qué ocasión?</label>
+                <select id="occasion">
+                  <option value="casual">Casual</option>
+                  <option value="universidad">Universidad</option>
+                  <option value="trabajo">Trabajo / Formal</option>
+                  <option value="fiesta">Fiesta / Evento elegante</option>
+                  <option value="deporte">Deporte / Activo</option>
+                </select>
+              </div>
+              <button class="primary full" id="btnRecommend" type="submit">✨ Generar todas las combinaciones</button>
+              <p class="fine-print">Motor de inferencia inteligente: evalúa compatibilidad de estilo, armonía de color, nivel térmico y lluvia variando prendas completas.</p>
+            </form>
+          </div>
+
+          <!-- PANEL DE RESULTADOS CON TODAS LAS COMBINACIONES -->
+          <div class="recommendation panel">
+            <div class="recommendation-top">
+              <div>
+                <p class="eyebrow" id="resultSubtitle">PROPUESTAS GENERADAS</p>
+                <h3 id="resultTitle">Tus combinaciones de outfit</h3>
+              </div>
+              <div class="rec-top-actions">
+                <span class="weather-badge" id="weatherBadge">☁ 18°C · Seco</span>
+              </div>
+            </div>
+
+            <!-- BARRA DE PESTAÑAS / SELECTOR DE COMBINACIONES -->
+            <div id="outfitsTabsBar" class="outfits-tabs-bar hidden">
+              <div class="tabs-label">Opciones generadas:</div>
+              <div id="outfitsTabsList" class="outfits-tabs-list"></div>
+            </div>
+
+            <div id="resultMessage" class="result-message"></div>
+
+            <!-- CONTENEDOR DE COMBINACIONES (TODAS O INDIVIDUAL) -->
+            <div id="outfitResult" class="outfit-result">
+              <div class="result-placeholder">
+                <span>✧</span>
+                <h3>Tu estilo, a tu manera</h3>
+                <p>Usa la API de clima o define tus condiciones para descubrir múltiples combinaciones que varían todas las prendas de tu guardarropa.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-heading saved-heading">
+          <div><p class="eyebrow">TUS FAVORITOS</p><h3>Conjuntos guardados</h3></div>
+        </div>
+        <div id="savedOutfits" class="saved-outfits"></div>
+      </section>
+
+      <!-- MODAL PARA AGREGAR / SUBIR PRENDA -->
+      <div id="clothingModal" class="modal-backdrop hidden">
+        <div class="modal panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+          <div class="modal-header">
+            <div>
+              <p class="eyebrow">NUEVA PIEZA</p>
+              <h3 id="modalTitle">Subir / Agregar prenda</h3>
+            </div>
+            <button id="closeModal" class="close-button" aria-label="Cerrar">×</button>
+          </div>
+          <form id="clothingForm">
+            <!-- SUBIDA DE FOTO -->
+            <div class="field">
+              <label>Foto de la prenda (archivo o URL)</label>
+              <div class="upload-box" id="dropZone">
+                <input id="clothingFile" type="file" accept="image/*" class="file-hidden-input">
+                <label for="clothingFile" class="upload-trigger">
+                  <span class="upload-icon">📷</span>
+                  <strong>Selecciona una foto de tu prenda</strong>
+                  <small>Haz clic para subir desde tu computadora o celular</small>
+                </label>
+              </div>
+              <div id="previewContainer" class="preview-container hidden">
+                <img id="imagePreview" alt="Vista previa de la prenda">
+                <div class="preview-meta">
+                  <span id="previewFileName">foto.jpg</span>
+                  <button type="button" id="removePhotoBtn" class="text-button remove-btn">Quitar foto</button>
+                </div>
+              </div>
+              <input id="clothingImage" type="url" placeholder="O pega una URL directa de imagen (opcional)..." style="margin-top:8px">
+            </div>
+
+            <div class="field">
+              <label for="clothingName">Nombre de la prenda</label>
+              <input id="clothingName" required placeholder="Ej. Blusa blanca de lino, Jeans azules, Botines negros...">
+            </div>
+
+            <div class="two-fields">
+              <div class="field">
+                <label for="clothingCategory">Categoría</label>
+                <select id="clothingCategory">
+                  <option value="superior">Parte superior (blusas, playeras, tops, suéteres)</option>
+                  <option value="inferior">Parte inferior (pantalones, jeans, faldas, shorts)</option>
+                  <option value="vestido">Vestido / Enterizo</option>
+                  <option value="calzado">Calzado (tenis, zapatos, botas, sandalias)</option>
+                  <option value="abrigo">Abrigo externo (chamarras, gabardinas, impermeables)</option>
+                  <option value="accesorio">Accesorio (bolsos, bufandas, paraguas, joyas)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="clothingColor">Color principal</label>
+                <select id="clothingColor">
+                  <option value="negro">Negro</option>
+                  <option value="blanco">Blanco</option>
+                  <option value="gris">Gris</option>
+                  <option value="beige">Beige</option>
+                  <option value="azul">Azul</option>
+                  <option value="rosa">Rosa</option>
+                  <option value="verde">Verde</option>
+                  <option value="rojo">Rojo</option>
+                  <option value="cafe">Café</option>
+                  <option value="dorado">Dorado</option>
+                  <option value="amarillo">Amarillo</option>
+                  <option value="multicolor">Multicolor</option>
+                  <option value="transparente">Transparente</option>
+                  <option value="camel">Camel</option>
+                  <option value="marron">Marrón</option>
+                  <option value="crema">Crema</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="two-fields">
+              <div class="field">
+                <label for="clothingWarmth">Nivel de abrigo térmico (1–5)</label>
+                <select id="clothingWarmth">
+                  <option value="1">1 · Muy ligero (calor > 19°C)</option>
+                  <option value="2" selected>2 · Medio ligero (16°C a 18°C)</option>
+                  <option value="3">3 · Templado (13°C a 15°C)</option>
+                  <option value="4">4 · Cálido (10°C a 12°C)</option>
+                  <option value="5">5 · Muy cálido / Frío intenso (&lt; 10°C)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="clothingFormality">Estilo / Ocasión</label>
+                <select id="clothingFormality">
+                  <option value="casual">Casual (diario, universidad)</option>
+                  <option value="formal">Formal (trabajo, oficina)</option>
+                  <option value="elegante">Elegante (fiestas, eventos)</option>
+                  <option value="deportivo">Deportivo (entrenamiento, activo)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="clothingEmoji">Icono representativo</label>
+              <select id="clothingEmoji">
+                <option value="👚">👚 Blusa / Top</option>
+                <option value="👕">👕 Playera / Camiseta</option>
+                <option value="👔">👔 Camisa formal</option>
+                <option value="🧶">🧶 Suéter tejido</option>
+                <option value="👖">👖 Jeans / Pantalón</option>
+                <option value="👗">👗 Vestido / Falda</option>
+                <option value="👟">👟 Tenis casuales</option>
+                <option value="👠">👠 Zapatos de tacón</option>
+                <option value="👞">👞 Mocasines / Zapatos formales</option>
+                <option value="🥾">🥾 Botas / Botines</option>
+                <option value="🧥">🧥 Abrigo / Chamarra</option>
+                <option value="👜">👜 Bolso / Mochila</option>
+                <option value="🧣">🧣 Bufanda / Accesorio</option>
+                <option value="☂️">☂️ Paraguas / Sombrilla</option>
+              </select>
+            </div>
+
+            <p id="clothingError" class="error"></p>
+            <button class="primary full" type="submit">Guardar prenda en mi guardarropa</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="toast" class="toast" role="status"></div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

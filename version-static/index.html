@@ -35,7 +35,7 @@
           </div>
           <div class="field">
             <label for="password">Contraseña</label>
-            <input id="password" type="password" required minlength="4" autocomplete="current-password" placeholder="Escribe tu contraseña">
+            <input id="password" type="password" required minlength="6" autocomplete="current-password" placeholder="Escribe tu contraseña">
           </div>
           <p id="authError" class="error" aria-live="polite"></p>
           <button class="primary full" id="authSubmit" type="submit">Iniciar sesión <span>→</span></button>
@@ -113,14 +113,14 @@
 
       <div id="clothingModal" class="modal-backdrop hidden">
         <div class="modal panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-          <div class="modal-header"><div><p class="eyebrow">NUEVA PIEZA</p><h3 id="modalTitle">Agregar prenda</h3></div><button id="closeModal" class="close-button" aria-label="Cerrar">×</button></div>
+          <div class="modal-header"><div><p id="modalEyebrow" class="eyebrow">NUEVA PIEZA</p><h3 id="modalTitle">Agregar prenda</h3></div><button id="closeModal" class="close-button" aria-label="Cerrar">×</button></div>
           <form id="clothingForm">
             <div class="field"><label for="clothingName">Nombre de la prenda</label><input id="clothingName" required placeholder="Ej. Blusa blanca"></div>
             <div class="two-fields"><div class="field"><label for="clothingCategory">Categoría</label><select id="clothingCategory"><option value="superior">Parte superior</option><option value="inferior">Parte inferior</option><option value="vestido">Vestido</option><option value="calzado">Calzado</option><option value="abrigo">Abrigo</option><option value="accesorio">Accesorio</option></select></div><div class="field"><label for="clothingColor">Color</label><select id="clothingColor"><option value="negro">Negro</option><option value="blanco">Blanco</option><option value="gris">Gris</option><option value="beige">Beige</option><option value="azul">Azul</option><option value="rosa">Rosa</option><option value="verde">Verde</option><option value="rojo">Rojo</option><option value="cafe">Café</option><option value="dorado">Dorado</option><option value="amarillo">Amarillo</option><option value="multicolor">Multicolor</option><option value="transparente">Transparente</option></select></div></div>
             <div class="two-fields"><div class="field"><label for="clothingWarmth">Nivel de abrigo (1–5)</label><select id="clothingWarmth"><option value="1">1 · Ligero</option><option value="2" selected>2 · Medio ligero</option><option value="3">3 · Medio</option><option value="4">4 · Cálido</option><option value="5">5 · Muy cálido</option></select></div><div class="field"><label for="clothingFormality">Estilo</label><select id="clothingFormality"><option value="casual">Casual</option><option value="formal">Formal</option><option value="elegante">Elegante</option><option value="deportivo">Deportivo</option></select></div></div>
             <div class="field"><label for="clothingEmoji">Icono de la prenda</label><select id="clothingEmoji"><option>👚</option><option>👕</option><option>👖</option><option>👗</option><option>👟</option><option>🥾</option><option>🧥</option><option>👜</option><option>🧣</option><option>☂️</option><option>👠</option></select></div>
             <div class="field"><label for="clothingImage">URL de imagen (opcional)</label><input id="clothingImage" type="url" placeholder="https://..."><small class="field-hint">Puedes pegar un enlace directo a una imagen de tu prenda.</small></div>
-            <p id="clothingError" class="error"></p><button class="primary full" type="submit">Guardar prenda</button>
+            <p id="clothingError" class="error"></p><button id="saveClothingBtn" class="primary full" type="submit">Guardar prenda</button>
           </form>
         </div>
       </div>

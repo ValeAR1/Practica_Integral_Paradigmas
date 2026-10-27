@@ -13,5 +13,5 @@ ocasiones_permitidas([casual, universidad, trabajo, fiesta, deporte]).
 
 % Categorias, colores y formalidades permitidas
 tipos_prenda_permitidos([superior, inferior, vestido, calzado, abrigo, accesorio]).
-colores_permitidos([negro, blanco, gris, beige, cafe, azul, rojo, rosa, verde, amarillo, dorado, multicolor, transparente]).
+colores_permitidos([negro, blanco, gris, beige, cafe, azul, rojo, rosa, verde, amarillo, dorado, plateado, naranja, morado, multicolor, transparente, camel, marron, crema]).
 formalidades_permitidas([casual, formal, elegante, deportivo]).

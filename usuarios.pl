@@ -5,6 +5,7 @@
     inicializar_db/0,
     autenticar_o_registrar/3,
     agregar_prenda/7,
+    actualizar_prenda/8,
     eliminar_prenda/2,
     listar_prendas_usuario/2,
     prenda_de/6,
@@ -62,6 +63,20 @@ agregar_prenda(Usuario, PrendaID, Tipo, Color, Abrigo, Formalidad, Resultado) :-
     ;   assertz(prenda_usuario(Usuario, PrendaID, Tipo, Color, Abrigo, Formalidad)),
         guardar_db,
         Resultado = ok
+    ).
+
+% Actualiza una prenda; si cambia el nombre, cambia también su identificador.
+actualizar_prenda(Usuario, IDActual, IDNuevo, Tipo, Color, Abrigo, Formalidad, Resultado) :-
+    (   prenda_usuario(Usuario, IDActual, _, _, _, _),
+        IDActual \== IDNuevo,
+        prenda_usuario(Usuario, IDNuevo, _, _, _, _)
+    ->  Resultado = error(ya_existe)
+    ;   prenda_usuario(Usuario, IDActual, _, _, _, _)
+    ->  retractall(prenda_usuario(Usuario, IDActual, _, _, _, _)),
+        assertz(prenda_usuario(Usuario, IDNuevo, Tipo, Color, Abrigo, Formalidad)),
+        guardar_db,
+        Resultado = ok
+    ;   Resultado = error(no_existe)
     ).
 
 % Elimina una prenda del ropero de un usuario

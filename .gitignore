@@ -1,0 +1,14 @@
+# Datos de usuarios (PIN) y secretos
+usuarios_data.pl
+.env
+.env.*
+*.pem
+*.key
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.qlf
+.swipl_history

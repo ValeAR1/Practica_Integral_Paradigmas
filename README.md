@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Closet Aura — Guardarropa Inteligente & Asistente de Outfits
 **Práctica Integral de Paradigmas de Programación — ESCOM IPN**
 
@@ -69,3 +70,7 @@ Si deseas probar la base de conocimientos directamente desde la consola interact
 % 3. Consulta estándar:
 ?- recomendar_outfit(18, no, trabajo, Sup, Inf, Calz, Abr, Acc).
 ```
+=======
+# Practica_Integral_Paradigmas
+Repositorio para trabajar el controlo de versiones y cambios de la práctica 
+>>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613

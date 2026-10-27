@@ -52,6 +52,7 @@ body{background:radial-gradient(ellipse at 85% 0%,#e7f3ff 0,transparent 32%),rad
 .result-placeholder span{color:#a49be8}
 .modal{background:linear-gradient(145deg,#fff,#fbfaff)}
 @media(max-width:760px){.auth-photo-card{display:none}.banner-photo{right:12px;width:32%;top:20px;bottom:20px}.photo-sticker{right:-9px;font-size:11px;padding:8px}.welcome-banner h1{max-width:68%;font-size:28px}.welcome-banner p:not(.eyebrow){max-width:65%}.inspiration-strip{gap:13px;padding:13px}.inspiration-strip img{width:88px;height:100px}.inspiration-strip h3{font-size:16px}.strip-sparkle{display:none}.clothing-art{height:125px}}
+<<<<<<< HEAD
 
 
 /* ==========================================================================
@@ -490,3 +491,5 @@ body{background:radial-gradient(ellipse at 85% 0%,#e7f3ff 0,transparent 32%),rad
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(60, 40, 90, 0.08);
 }
+=======
+>>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613

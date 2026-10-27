@@ -1,6 +1,5 @@
 % =========================================================================
 % SISTEMA EXPERTO: Asistente de Outfit Inteligente (Moda Femenina y Clima)
-<<<<<<< HEAD
 % Asignatura: Paradigmas de Programación - ESCOM IPN
 % Versión completa con más de 180 prendas y motor de diversidad
 % =========================================================================
@@ -9,11 +8,6 @@
 :- dynamic prenda/5.
 :- dynamic prenda_usuario/8.
 
-=======
-% Asignatura: Paradigmas de Programación - ESCOM IPN[cite: 1, 2]
-% =========================================================================
-
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 % --- 1. HECHOS: GUARDARROPA Y ATRIBUTOS (Más de 30 prendas por categoría) ---
 % Formato: prenda(ID, Tipo, Color, NivelAbrigo[1-5], Formalidad).
 
@@ -203,27 +197,18 @@ prenda(bolso_fiesta_dorado, accesorio, dorado, 1, elegante).
 prenda(gorro_lana_gris, accesorio, gris, 4, casual).
 prenda(guantes_piel_negros, accesorio, negro, 4, formal).
 prenda(reloj_dorado, accesorio, dorado, 1, elegante).
-<<<<<<< HEAD
 prenda(panuelo_cuello, accesorio, multicolor, 1, casual).
-=======
-prenda(pañuelo_cuello, accesorio, multicolor, 1, casual).
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 prenda(diadema_terciopelo, accesorio, negro, 1, elegante).
 prenda(choker_negro, accesorio, negro, 1, casual).
 prenda(lentes_sol_cateye, accesorio, negro, 1, casual).
 prenda(bolso_shopper_beige, accesorio, beige, 1, casual).
-<<<<<<< HEAD
 prenda(rinonera_deportiva, accesorio, negro, 1, deportivo).
-=======
-prenda(riñonera_deportiva, accesorio, negro, 1, deportivo).
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 prenda(sombrilla_blanca, accesorio, blanco, 1, casual).
 prenda(bufanda_beige_larga, accesorio, beige, 4, casual).
 prenda(cinturon_dorado, accesorio, dorado, 1, elegante).
 prenda(bolso_cruzado_rojo, accesorio, rojo, 1, casual).
 prenda(gorra_rosa, accesorio, rosa, 1, casual).
 
-<<<<<<< HEAD
 % Predicado para acceder a prendas: si el usuario subió prendas dinámicas se usan esas,
 % de lo contrario se usan los hechos estáticos base.
 obtener_prenda(ID, Tipo, Color, Abrigo, Formalidad) :-
@@ -233,17 +218,10 @@ obtener_prenda(ID, Tipo, Color, Abrigo, Formalidad) :-
     ).
 
 % --- 2. REGLAS DE CLIMA Y ABRIGO ---
-=======
-
-% -------------------------------------------------------------------------
-% 2. REGLAS DE CLIMA Y ABRIGO (Rangos con diferencia de 3 grados)
-% -------------------------------------------------------------------------
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 requerimiento_abrigo(Temp, 5) :- Temp < 10.
 requerimiento_abrigo(Temp, 4) :- Temp >= 10, Temp < 13.
 requerimiento_abrigo(Temp, 3) :- Temp >= 13, Temp < 16.
 requerimiento_abrigo(Temp, 2) :- Temp >= 16, Temp < 19.
-<<<<<<< HEAD
 requerimiento_abrigo(Temp, 1) :- Temp >= 19.
 
 necesita_abrigo_externo(Temp) :- Temp < 16.
@@ -295,22 +273,11 @@ es_paraguas(ID) :-
     (sub_atom(ID, _, _, _, paraguas) ; sub_atom(ID, _, _, _, sombrilla)), !.
 
 % --- 3. MÓDULO DE TEORÍA Y ARMONÍA DE COLORES (DETERMINÍSTICO SIN DUPLICADOS) ---
-=======
-requerimiento_abrigo(Temp, 1) :- Temp >= 19.  % Soporta 25°C y más
-
-necesita_abrigo_externo(Temp) :- Temp < 16.
-
-
-% -------------------------------------------------------------------------
-% 3. MÓDULO DE TEORÍA Y ARMONÍA DE COLORES
-% -------------------------------------------------------------------------
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 es_neutro(negro).
 es_neutro(blanco).
 es_neutro(gris).
 es_neutro(beige).
 es_neutro(marron).
-<<<<<<< HEAD
 es_neutro(cafe).
 es_neutro(crema).
 es_neutro(transparente).
@@ -324,24 +291,10 @@ combina_colores(_, multicolor) :- !.
 combina_colores(C1, C2) :- (es_neutro(C1) ; es_neutro(C2)), !.
 combina_colores(C1, C2) :- combina_par(C1, C2), !.
 combina_colores(C1, C2) :- combina_par(C2, C1), !.
-=======
-es_neutro(crema).
-es_neutro(transparente).
-es_neutro(camel).
-
-combina_colores(C1, C2) :- C1 == C2.
-combina_colores(C1, C2) :- es_neutro(C1) ; es_neutro(C2).
-combina_colores(C1, C2) :- combina_par(C1, C2).
-combina_colores(C1, C2) :- combina_par(C2, C1).
-
-combina_colores(multicolor, C2) :- es_neutro(C2).
-combina_colores(C1, multicolor) :- es_neutro(C1).
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 
 combina_par(azul, rosa).
 combina_par(azul, beige).
 combina_par(azul, dorado).
-<<<<<<< HEAD
 combina_par(azul, amarillo).
 combina_par(azul, rojo).
 combina_par(azul, verde).
@@ -351,16 +304,10 @@ combina_par(verde, amarillo).
 combina_par(verde, cafe).
 combina_par(rojo, cafe).
 combina_par(rojo, rosa).
-=======
-combina_par(verde, dorado).
-combina_par(verde, beige).
-combina_par(rojo, cafe).
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 combina_par(rosa, gris).
 combina_par(cafe, beige).
 combina_par(cafe, dorado).
 combina_par(amarillo, negro).
-<<<<<<< HEAD
 combina_par(naranja, azul).
 combina_par(morado, amarillo).
 combina_par(morado, rosa).
@@ -381,42 +328,18 @@ adecuado_para(casual, casual).
 adecuado_para(casual, deportivo).
 adecuado_para(universidad, casual).
 adecuado_para(universidad, deportivo).
-=======
-
-armonia_global(ColorSup, ColorInf, ColorCalz, ColorAcc) :-
-    combina_colores(ColorSup, ColorInf),
-    combina_colores(ColorSup, ColorCalz),
-    combina_colores(ColorInf, ColorCalz),
-    combina_colores(ColorSup, ColorAcc).
-
-
-% -------------------------------------------------------------------------
-% 4. REGLAS DE OCASIÓN Y FORMALIDAD
-% -------------------------------------------------------------------------
-adecuado_para(casual, casual).
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 adecuado_para(trabajo, formal).
 adecuado_para(trabajo, elegante).
 adecuado_para(fiesta, elegante).
 adecuado_para(fiesta, formal).
 adecuado_para(deporte, deportivo).
-<<<<<<< HEAD
 adecuado_para(deporte, casual).
 
 % --- 5. REGLAS PRINCIPALES DE INFERENCIA ---
-=======
-adecuado_para(universidad, casual).
-
-
-% -------------------------------------------------------------------------
-% 5. REGLAS PRINCIPALES DE INFERENCIA (Con Backtracking Total)
-% -------------------------------------------------------------------------
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
 
 % CASO A1: DÍA CON LLUVIA Y CONJUNTO DE DOS PIEZAS
 recomendar_outfit(Temperatura, si, Ocasion, Superior, Inferior, Calzado, AbrigoExterno, Accesorio) :-
     requerimiento_abrigo(Temperatura, AbrigoMinimo),
-<<<<<<< HEAD
     obtener_prenda(Superior, superior, ColorSup, AbrigoSup, FormSup),
     adecuado_para(Ocasion, FormSup),
     obtener_prenda(Inferior, inferior, ColorInf, AbrigoInf, FormInf),
@@ -461,66 +384,11 @@ recomendar_outfit(Temperatura, no, Ocasion, Superior, Inferior, Calzado, AbrigoE
     TotalAbrigo >= AbrigoMinimo,
     obtener_prenda(Accesorio, accesorio, ColorAcc, _, _),
     \+ es_paraguas(Accesorio),
-=======
-    prenda(Superior, superior, ColorSup, AbrigoSup, FormSup),
-    prenda(Inferior, inferior, ColorInf, AbrigoInf, FormInf),
-    
-    prenda(Calzado, calzado, ColorCalz, _, FormCalz),
-    (Calzado = botas_lluvia_amarillas ; Calzado = botas_lluvia_negras),
-    
-    prenda(AbrigoExterno, abrigo, ColorAbrigo, AbrigoExtVal, FormAbrigo),
-    (AbrigoExterno = impermeable_transparente ; AbrigoExterno = chamarra_impermeable_azul ; AbrigoExterno = impermeable_amarillo),
-    AbrigoExtVal >= AbrigoMinimo,
-    adecuado_para(Ocasion, FormAbrigo),
-    combina_colores(ColorSup, ColorAbrigo),
-    
-    prenda(Accesorio, accesorio, ColorAcc, _, _),
-    (Accesorio = paraguas_negro ; Accesorio = paraguas_transparente),
-    
-    TotalAbrigo is AbrigoSup + AbrigoInf,
-    TotalAbrigo >= AbrigoMinimo,
-    adecuado_para(Ocasion, FormSup),
-    adecuado_para(Ocasion, FormInf),
-    adecuado_para(Ocasion, FormCalz),
-    armonia_global(ColorSup, ColorInf, ColorCalz, ColorAcc).
-
-% CASO A2: DÍA SIN LLUVIA Y CONJUNTO DE DOS PIEZAS (Soporta hasta 25°C y más)
-recomendar_outfit(Temperatura, no, Ocasion, Superior, Inferior, Calzado, AbrigoExterno, Accesorio) :-
-    requerimiento_abrigo(Temperatura, AbrigoMinimo),
-    prenda(Superior, superior, ColorSup, AbrigoSup, FormSup),
-    prenda(Inferior, inferior, ColorInf, AbrigoInf, FormInf),
-    
-    prenda(Calzado, calzado, ColorCalz, _, FormCalz),
-    Calzado \= botas_lluvia_amarillas,
-    Calzado \= botas_lluvia_negras,
-    
-    (   necesita_abrigo_externo(Temperatura)
-    ->  prenda(AbrigoExterno, abrigo, ColorAbrigo, AbrigoExtVal, FormAbrigo),
-        AbrigoExterno \= impermeable_transparente,
-        AbrigoExterno \= chamarra_impermeable_azul,
-        AbrigoExterno \= impermeable_amarillo,
-        AbrigoExtVal >= AbrigoMinimo,
-        adecuado_para(Ocasion, FormAbrigo),
-        combina_colores(ColorSup, ColorAbrigo)
-    ;   AbrigoExterno = ninguno
-    ),
-    
-    prenda(Accesorio, accesorio, ColorAcc, _, _),
-    Accesorio \= paraguas_negro,
-    Accesorio \= paraguas_transparente,
-    
-    TotalAbrigo is AbrigoSup + AbrigoInf,
-    TotalAbrigo >= AbrigoMinimo,
-    adecuado_para(Ocasion, FormSup),
-    adecuado_para(Ocasion, FormInf),
-    adecuado_para(Ocasion, FormCalz),
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
     armonia_global(ColorSup, ColorInf, ColorCalz, ColorAcc).
 
 % CASO B1: DÍA CON LLUVIA Y VESTIDO
 recomendar_outfit(Temperatura, si, Ocasion, Vestido, no_aplica, Calzado, AbrigoExterno, Accesorio) :-
     requerimiento_abrigo(Temperatura, AbrigoMinimo),
-<<<<<<< HEAD
     obtener_prenda(Vestido, vestido, ColorVest, AbrigoVest, FormVest),
     adecuado_para(Ocasion, FormVest),
     
@@ -660,54 +528,3 @@ recomendar_outfit_flexible(Temperatura, _, _Ocasion, Vestido, no_aplica, Calzado
 recomendar_outfit_cambiando_todo(Temp, Lluvia, Ocasion, Sup, Inf, Calz, Abr, Acc) :-
     recomendar_outfits_diversos(Temp, Lluvia, Ocasion, 25, Outfits),
     member(outfit(Sup, Inf, Calz, Abr, Acc), Outfits).
-=======
-    prenda(Vestido, vestido, ColorVest, AbrigoVest, FormVest),
-    
-    prenda(Calzado, calzado, ColorCalz, _, FormCalz),
-    (Calzado = botas_lluvia_amarillas ; Calzado = botas_lluvia_negras),
-    
-    prenda(AbrigoExterno, abrigo, ColorAbrigo, AbrigoExtVal, FormAbrigo),
-    (AbrigoExterno = impermeable_transparente ; AbrigoExterno = chamarra_impermeable_azul ; AbrigoExterno = impermeable_amarillo),
-    AbrigoExtVal >= AbrigoMinimo,
-    adecuado_para(Ocasion, FormAbrigo),
-    combina_colores(ColorVest, ColorAbrigo),
-    
-    prenda(Accesorio, accesorio, ColorAcc, _, _),
-    (Accesorio = paraguas_negro ; Accesorio = paraguas_transparente),
-    
-    AbrigoVest >= AbrigoMinimo,
-    adecuado_para(Ocasion, FormVest),
-    adecuado_para(Ocasion, FormCalz),
-    combina_colores(ColorVest, ColorCalz),
-    combina_colores(ColorVest, ColorAcc).
-
-% CASO B2: DÍA SIN LLUVIA Y VESTIDO (Soporta hasta 25°C y más)
-recomendar_outfit(Temperatura, no, Ocasion, Vestido, no_aplica, Calzado, AbrigoExterno, Accesorio) :-
-    requerimiento_abrigo(Temperatura, AbrigoMinimo),
-    prenda(Vestido, vestido, ColorVest, AbrigoVest, FormVest),
-    
-    prenda(Calzado, calzado, ColorCalz, _, FormCalz),
-    Calzado \= botas_lluvia_amarillas,
-    Calzado \= botas_lluvia_negras,
-    
-    (   necesita_abrigo_externo(Temperatura)
-    ->  prenda(AbrigoExterno, abrigo, ColorAbrigo, AbrigoExtVal, FormAbrigo),
-        AbrigoExterno \= impermeable_transparente,
-        AbrigoExterno \= chamarra_impermeable_azul,
-        AbrigoExterno \= impermeable_amarillo,
-        AbrigoExtVal >= AbrigoMinimo,
-        adecuado_para(Ocasion, FormAbrigo),
-        combina_colores(ColorVest, ColorAbrigo)
-    ;   AbrigoExterno = ninguno
-    ),
-    
-    prenda(Accesorio, accesorio, ColorAcc, _, _),
-    Accesorio \= paraguas_negro,
-    Accesorio \= paraguas_transparente,
-    
-    AbrigoVest >= AbrigoMinimo,
-    adecuado_para(Ocasion, FormVest),
-    adecuado_para(Ocasion, FormCalz),
-    combina_colores(ColorVest, ColorCalz),
-    combina_colores(ColorVest, ColorAcc).
->>>>>>> 22ab16d6f04a8c03ab2a540954fd331b43b2e613
